@@ -15,7 +15,8 @@ CORS(app)  # Enable CORS for all routes
 label_encoder = LabelEncoder()
 
 # Load the pickled model at startup
-model_filename = 'model.pkl'
+base_path = os.path.dirname(os.path.abspath(__file__))
+model_path = os.path.join(base_path, 'model.pkl')
 try:
     with open(model_filename, 'rb') as f:
         model = pickle.load(f)
