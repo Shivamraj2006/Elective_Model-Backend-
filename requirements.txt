@@ -3,4 +3,5 @@ flask-cors
 numpy
 keras
 scikit-learn
+pandas
 gunicorn
