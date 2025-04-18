@@ -1,5 +1,6 @@
 Flask
 flask-cors
 numpy
+keras
 scikit-learn
 gunicorn
