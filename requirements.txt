@@ -4,6 +4,5 @@ numpy
 keras
 scikit-learn
 pandas
-logging
-traceback
+
 gunicorn
