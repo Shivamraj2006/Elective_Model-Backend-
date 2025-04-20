@@ -4,6 +4,8 @@ import pickle
 import numpy as np
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 import logging
+import pickle
+import traceback
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -15,15 +17,13 @@ CORS(app)  # Enable CORS for all routes
 label_encoder = LabelEncoder()
 
 # Load the pickled model at startup
-base_path = os.path.dirname(os.path.abspath(__file__))
-model_path = os.path.join(base_path, 'model.pkl')
 try:
-    with open(model_filename, 'rb') as f:
+    model_path = os.path.join(os.path.dirname(__file__), 'model.pkl')
+    with open(model_path, 'rb') as f:
         model = pickle.load(f)
-    logger.info("Model loaded successfully.")
 except Exception as e:
-    logger.error(f"Error loading model: {e}")
-    model = None
+    print("Error loading model:", e)
+    traceback.print_exc()
 
 @app.route('/predict', methods=['POST'])
 def predict():
