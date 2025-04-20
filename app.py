@@ -6,6 +6,7 @@ from sklearn.preprocessing import LabelEncoder, StandardScaler
 import logging
 import pickle
 import traceback
+import os
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -15,6 +16,7 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
 label_encoder = LabelEncoder()
+model = None
 
 # Load the pickled model at startup
 try:
@@ -25,11 +27,11 @@ except Exception as e:
     print("Error loading model:", e)
     traceback.print_exc()
 
-@app.route('/predict', methods=['POST'])
+@app.route("/predict", methods=["POST"])
 def predict():
+    global model
     if model is None:
-        logger.error("Model not loaded")
-        return jsonify({'error': 'Model not loaded'}), 500
+        return jsonify({"error": "Model not loaded"}), 500
 
     try:
         data = request.get_json()
